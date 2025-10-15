@@ -20,18 +20,8 @@ def gcd(a, b):
         a, b = b, a % b
     return a
 
-def euler_phi(N):
-    if rm.Rabin_Miller(N):
-        return N - 1
-    result = 0
-    for i in range(N):
-        if gcd(i, N) == 1:
-            result += 1
-    return result
-
-
+#tìm nghịch đảo module theo Eucid mở rộng
 def find_modular_inverse(a, m):
-    # Extended Euclidean Algorithm
     m0, x0, x1 = m, 0, 1
     while a > 1:
         q = a // m
@@ -41,9 +31,6 @@ def find_modular_inverse(a, m):
         x1 += m0
     return x1
 
-#def find_modular_inverse(e, n):
-#    phi = euler_phi(n)
-#    return pow(e, phi - 1, n)
 
 def gerenate_Key(iNumbits = 64):
     p = gp.generate_prime()
