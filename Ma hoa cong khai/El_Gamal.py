@@ -1,5 +1,6 @@
 import random 
 import gerenate_prime 
+import findPrimitiveRoot
 
 
 class private_key():
@@ -15,24 +16,10 @@ class public_key():
         self.y = y
 
 
-#tìm căn nguyên thủy
-def find_primitive_root(p):
-    if p == 2:
-        return 1
-    
-    p1 = 2
-    p2 = (p - 1)//p1
-
-    while 1:
-        a = random.randint(2, p-1)
-        if not (pow(a , (p - 1)//p1, p) == 1):
-            if not (pow(a, (p - 1)//p2, p) == 1):
-                return a
-            
 #sinh khóa
 def generate_key(iNumbits = 256):
     p = gerenate_prime.generate_prime(iNumbits)
-    a = find_primitive_root(p)
+    a = findPrimitiveRoot.find_primitive_root(p)
     x = random.randint(1,p - 2)
     y = pow(a, x, p)
     publicKey = public_key(p,a,y)
