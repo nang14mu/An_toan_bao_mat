@@ -1,0 +1,256 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int powerMod(int a, int m, int n) {
+    int result = 1;
+    a = a % n;
+    while (m > 0) {
+        if (m % 2 == 1) result = (result * a) % n;
+        a = (a * a) % n;
+        m /= 2;
+    }
+    return result;
+}
+
+int extended_gcd(int a, int b, int &x, int &y) {
+    if (a == 0) {
+        x = 0;
+        y = 1;
+        return b;  // gcd
+    }
+    int x1, y1; // Cac he so tam thoi
+    int gcd = extended_gcd(b % a, a, x1, y1);
+    
+    // update x va y
+    x = y1 - (b / a) * x1;
+    y = x1;
+
+    return gcd;  // Tra ve gcd
+}
+
+int mod_exp(int a, int k, int m) {
+    int result = 1;
+    a = a % m;
+    while (k > 0) {
+        if (k % 2 == 1) {
+            result = (1LL * result * a) % m;
+        }
+        k /= 2;
+        a = (1LL * a * a) % m;
+    }
+    return result;
+}
+
+int inverse_mod_euclid(int a, int m) {
+    int x, y;
+    int gcd = extended_gcd(a, m, x, y);
+    
+    if (gcd != 1) {
+        return -1;
+    } else {
+        return (x % m + m) % m; 
+    }
+}
+
+int fermat_power_mod(int a, int m, int n) {
+    if (m >= n) {
+        m = m % (n - 1);
+    }
+    return powerMod(a, m, n);
+}
+
+int euler_totient(int n) {
+    int result = n;
+
+    for (int p = 2; p * p <= n; ++p) {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p;
+            }
+            result -= result / p;
+        }
+    }
+
+    if (n > 1) {
+        result -= result / n;
+    }
+
+    return result;
+}
+
+int euler_power_mod(int a, int m, int n) {
+    int phi_n = euler_totient(n);
+
+    if (m >= phi_n) {
+        m = m % phi_n;
+    }
+
+    return powerMod(a, m, n);
+}
+
+vector<int> prime_factors(int n) {
+    vector<int> factors;
+    for (int i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            factors.push_back(i);
+            n /= i;
+        }
+    }
+    if (n > 1) factors.push_back(n);  
+    return factors;
+}
+
+int mod_inverse(int a, int m) {
+    int x, y;
+    int gcd = extended_gcd(a, m, x, y);
+    if (gcd != 1) {
+        return -1;  
+    } else {
+        return (x % m + m) % m;
+    }
+}
+
+int chineseRemainder(int a, int k, int n) {
+    vector<int> factors = prime_factors(n);
+    int M = 1;
+    vector<int> r, M_i, y;
+
+    for (int m_i : factors) {
+        int r_i = mod_exp(a, k, m_i);
+        r.push_back(r_i);
+        M *= m_i;
+    }
+
+    for (int i = 0; i < factors.size(); i++) {
+        M_i.push_back(M / factors[i]);
+        y.push_back(mod_inverse(M_i[i], factors[i]));
+    }
+
+    int result = 0;
+    for (int i = 0; i < factors.size(); i++) {
+        result = (result + 1LL * r[i] * M_i[i] * y[i]) % M;
+    }
+
+    if (result < 0) result += M;
+
+    return result;
+}
+
+int chinese_remainder_theorem(int a1, int m1, int a2, int m2, int a3, int m3) {
+
+    int M = m1 * m2 * m3;
+
+    int M1 = M / m1;
+    int M2 = M / m2;
+    int M3 = M / m3;
+
+    int y1 = mod_inverse(M1, m1);
+    int y2 = mod_inverse(M2, m2);
+    int y3 = mod_inverse(M3, m3);
+
+    int x = (a1 * M1 * y1 + a2 * M2 * y2 + a3 * M3 * y3) % M;
+
+    if (x < 0) {
+        x += M;
+    }
+
+    return x;
+}
+
+bool isPrimitiveRoot(int n, int a) {
+    if (n == 2)
+        return (a == 1);
+    vector<bool> check(n, false);
+    for (int i = 1; i < n; i++) {
+        int x = powerMod(a, i, n);
+        if (check[x])
+            return false;
+        check[x] = true;
+    }
+    return true;
+}
+
+int discreteLogarithm(int a, int b, int m) {
+    int n = (int) sqrt (m + .0) + 1;
+    int an = 1;
+    for (int i = 0; i < n; ++i)
+        an = (an * a) % m;
+    unordered_map<int, int> value;
+    for (int i = 1, cur = an; i <= n; ++i) {
+        if (!value.count(cur))
+            value[cur] = i;
+        cur = (cur * an) % m;
+    }
+    for (int i = 0, cur = b; i <= n; ++i) {
+        if (value.count(cur)) {
+            int ans = value[cur] * n - i;
+            if (ans < m)
+                return ans;
+        }
+        cur = (cur * a) % m;
+    }
+    return -1;
+}
+
+int modInverse(int b, int n) {
+    int x0 = 0, x1 = 1, a = b, m = n;
+    while (a > 1) {
+        int q = a / m;
+        int t = m; 
+        m = a % m; 
+        a = t; 
+        t = x0; 
+        x0 = x1 - q * x0; 
+        x1 = t; 
+    }
+    return (x1 + n) % n; 
+}
+void readIntegersFromFile(const string& filename, vector<int>& numbers) {
+    ifstream file(filename);
+
+    if (!file) {
+        cerr << "Khong the mo file: " << filename << std::endl;
+        return;
+    }
+
+    int number;
+    while (file >> number) {  
+        numbers.push_back(number);  
+    }
+
+    file.close();  
+}
+int main() {
+
+    cout << "Cau 1: b = " << powerMod(397,6329,6329) << endl;
+    cout << "Cau 2: x = " << inverse_mod_euclid(1885,6563) << endl;
+    cout << "Cau 3: b = " << fermat_power_mod(439,760,6269) << endl;
+    cout << "Cau 4: Result = " << euler_totient(3992) << endl;
+    cout << "Cau 5: b = " << euler_power_mod(23,3885,395) << endl;
+    cout << "Cau 6: b = " << chineseRemainder(227,80,60421) << endl;
+    cout << "Cau 7: x =  " << chinese_remainder_theorem(17,19,11,5,16,3) << endl;
+	int a = 5,n = 257;
+    if (isPrimitiveRoot(n,a)){
+    	cout << "Cau 8: " << a<< " la can nguyen thuy cua " << n<< endl;
+	}  
+	else{
+		cout << "Cau 8: " << a<< "khong la can nguyen thuy cua " << n<< endl;
+	}
+    cout << "Cau 9: k = " << discreteLogarithm(3,5,19) << endl;
+    
+    cout << "Cau 10: " << endl;
+    int result_a = powerMod(37,581,127); 
+    int result_b = powerMod(97,364,127); 
+
+    cout << "(a^x + b^y) mod n: " << (result_a + result_b) % 127 << endl;
+    cout << "(a^x - b^y) mod n: " << (result_a - result_b + 127) % 127 << endl; 
+    cout << "(a^x * b^y) mod n: " << (result_a * result_b) % 127 << endl;
+
+    if (result_b != 0) { 
+        int b_inv = modInverse(result_b, 127); 
+        cout << "(a^x / b^y) mod n: " << (result_a * b_inv) % 127 << endl; 
+        cout << "(b^y)^(-1) mod n: " << b_inv << endl;
+    }
+    
+    return 0;
+}
