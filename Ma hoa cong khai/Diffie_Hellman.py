@@ -3,11 +3,11 @@ import gerenate_prime
 import findPrimitiveRoot
 
 class A():
-    def __init__(self, q, anpha):
+    def __init__(self, q = 6947, anpha = 5):
         self.q = q
         self.anpha = anpha
-        self.xA = random.randint(1, q - 1)
-        self.xA = 97
+#        self.xA = random.randint(1, q - 1)
+        self.xA = 395
         self.yA = pow(self.anpha, self.xA, self.q)
         self.K = None
 
@@ -21,10 +21,11 @@ class A():
         return self.K
 
 class B():
-    def __init__(self, q, anpha):
+    def __init__(self, q = 6947, anpha = 5):
         self.q = q
         self.anpha = anpha
-        self.xB = random.randint(1, q - 1)
+#        self.xB = random.randint(1, q - 1)
+        self.xB = 338
         self.yB = pow(self.anpha, self.xB, self.q)
         self.K = None
 
@@ -43,18 +44,17 @@ def generateKey(iNumBits = 256):
     return {'prime': prime, 'primitiveRoot': primitiveRoot}
 
 if __name__ == "__main__":
-    key = generateKey()
-    prime = key['prime']
-    primitiveRoot = key['primitiveRoot']
-
-    alice = A(prime, primitiveRoot)
-    bob = B(prime, primitiveRoot)
+    alice = A()
+    bob = B()
 
     alice.compute_K(bob.getyB())
     bob.compute_K(alice.getyA())
 
-    print(alice.getK())
-    print(bob.getK())
+    print(f"yA = {alice.getyA()}")
+    print(f"yB = {bob.getyB()}")
+
+    print(f"Kab = {alice.getK()}")
+    print(f"Kba = {bob.getK()}")
 
 
 
