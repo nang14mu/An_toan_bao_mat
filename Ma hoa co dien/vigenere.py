@@ -32,8 +32,8 @@ class vigenere:
 
 
 if __name__ == "__main__":
-    v = vigenere("ABCD")
-    print(v.__encrypt__("NANGvannang"))
-    print(v.__decrypt__(v.__encrypt__("NANGvannang")))
+    v = vigenere("YOUREON")
+    print(v.__encrypt__("MONEYMAKESTHE"))
+    print(v.__decrypt__(v.__encrypt__("MONEYMAKESTHE")))
 
     
