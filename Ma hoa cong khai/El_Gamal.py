@@ -39,7 +39,7 @@ def decrypt(c1, c2, privateKey):
     M = (c2 * pow(K, -1, privateKey.p)) % privateKey.p
     return M
 
-
+#This content is just a classroom exercise
 if __name__ == "__main__":
     p = 6827
     a = 5
