@@ -33,7 +33,6 @@ class columnarTransposition:
         return ''.join(ret)    
 
 if __name__ == '__main__': 
-    print('use "import pycipher" to access functions')
     c = columnarTransposition("4312567")
     print(c.__encrypt__("attackpostpopeduntiltwoamxyz"))
     if "TTNAAPTMTSUOAODWCOIXKPLYPETZ" == "ttnaaptmtsuoaodwcoixkplypetz".upper():

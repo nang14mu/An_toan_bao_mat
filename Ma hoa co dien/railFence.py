@@ -48,6 +48,6 @@ class railFence:
 
 
 if __name__ == "__main__":
-    r = railFence(2)
-    print(r.__encrypt__("VANNANG"))
-    print(r.__decrypt__(r.__encrypt__("VANNANG")))
+    r = railFence(9)
+    print(r.__encrypt__("ABADBEGINNINGMAKES"))
+    print(r.__decrypt__(r.__encrypt__("ABADBEGINNINGMAKES")))
