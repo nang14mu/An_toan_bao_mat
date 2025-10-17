@@ -55,15 +55,25 @@ def encrypt(M, publicKey):
 def decrypt(C, privateKey):
     return pow(C, privateKey.d, privateKey.N)
     
-
+#This content is just a classroom exercise
 if __name__ == "__main__":
-    key = gerenate_Key()
-    pub = key['publicKey']
-    priv = key['privateKey']
+    p = 43
+    q = 47
+    e = 67
+    N = p * q
+    phi = (p - 1) * (q - 1)
+    d = find_modular_inverse(67, phi)
+    pubK = public_key(e,N)
+    priveK = private_key(d, p, q, N)
 
-    encry = encrypt(333, pub)
-    decry = decrypt(encry, priv)
+    encry = encrypt(59, pubK)
+    dencry = decrypt(encry, priveK)
 
-    print(encry)
-    print(decry)
+    print(f"a. PU = (e,n) = {pubK.e, pubK.N}")
+    print(f"b. PR = (d,n) = {priveK.d, priveK.N}")
+
+    print(f"c. C = {encry}")
+    print(f"d. M = {dencry}")
+
+    print("e. bao mat")
 
