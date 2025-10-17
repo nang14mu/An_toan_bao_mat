@@ -45,7 +45,9 @@ class Ceasar:
         return plainText
     
 if __name__ == "__main__":
-    c = Ceasar(3)
-    cipher = c.__encrypt__("Nang")
-    print("Ciphertext:", cipher)
-    print("Decpertext:", c.__decrypt__(cipher))
+    c = Ceasar(8)
+    encry = c.__encrypt__("NOROSEWITHOUTATH")
+    decry = c.__decrypt__(encry)
+
+    print(encry)
+    print(decry)
