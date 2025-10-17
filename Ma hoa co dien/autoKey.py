@@ -36,6 +36,6 @@ class autoKey:
 
 
 if __name__ == "__main__":
-    a = autoKey("ABCD")
-    print(a.__encrypt__("NANGvannang"))
-    print(a.__decrypt__(a.__encrypt__("NANGvannang")))
+    a = autoKey("YOUREON")
+    print(a.__encrypt__("MONEYMAKESTHE"))
+    print(a.__decrypt__(a.__encrypt__("MONEYMAKESTHE")))
