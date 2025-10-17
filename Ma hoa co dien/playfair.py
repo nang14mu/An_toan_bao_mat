@@ -76,9 +76,9 @@ class Playfair:
 
 
 if __name__ == "__main__":
-    p = Playfair("MONARCHY")
-    print(p.__encrypt__("MONARCHY"))
-    print(p.__decrypt__(p.__encrypt__("MONARCHY")))
+    p = Playfair("THEDIEIS")
+    print(p.__encrypt__("THETRUTHWILLOU"))
+    print(p.__decrypt__(p.__encrypt__("THETRUTHWILLOU")))
 
 
 
