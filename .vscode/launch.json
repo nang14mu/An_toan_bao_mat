@@ -2,6 +2,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "An_toan_bao_mat_36096fc4"
+        },
+        {
+            "type": "java",
+            "name": "bai5",
+            "request": "launch",
+            "mainClass": "bai5",
+            "projectName": "An_toan_bao_mat_36096fc4"
+        },
+        {
+            "type": "java",
+            "name": "DES",
+            "request": "launch",
+            "mainClass": "DES",
+            "projectName": "An_toan_bao_mat_36096fc4"
+        },
+        {
             "name": "Run C++ in terminal (no debug clutter)",
             "type": "cppdbg",
             "request": "launch",
