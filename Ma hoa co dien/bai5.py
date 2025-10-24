@@ -12,5 +12,3 @@ K = "THEDIEIS"
 p = playfair.Playfair(K)
 
 print(f"C = {p.__encrypt__(M)}")
-
-print(p.key)
