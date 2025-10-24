@@ -13,14 +13,14 @@ print(f"   PU = (e, n) = ({publicKey.e}, {publicKey.N})")
 # b) Cách An tạo ra khóa riêng: PR = (d, n)
 print("\nb) Cách An tạo ra khóa riêng:")
 phi = (p - 1) * (q - 1)
-print(f"   Bước 1: Tính φ(n) = (p-1)(q-1) = {p-1} × {q-1} = {phi}")
+print(f"   Bước 1: Tính φ(n) = (p-1)(q-1) = {p-1} x {q-1} = {phi}")
 
 d = RSA.find_modular_inverse(e, phi)
 privateKey = RSA.private_key(d, p, q, N)
-print(f"   Bước 2: Tìm d sao cho e × d ≡ 1 (mod φ(n))")
-print(f"   Nghĩa là: {e} × d ≡ 1 (mod {phi})")
+print(f"   Bước 2: Tìm d sao cho e x d ≡ 1 (mod φ(n))")
+print(f"   Nghĩa là: {e} x d ≡ 1 (mod {phi})")
 print(f"   => d = {d}")
-print(f"   Kiểm tra: {e} × {d} mod {phi} = {(e * d) % phi}")
+print(f"   Kiểm tra: {e} x {d} mod {phi} = {(e * d) % phi}")
 print(f"   PR = (d, n) = ({privateKey.d}, {privateKey.N})")
 
 # c) Cách An tạo bản mã nhờa thông điệp M = 59 để gửi cho C
